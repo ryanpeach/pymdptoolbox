@@ -592,6 +592,8 @@ class PolicyIteration(MDP):
         optimal policy
     iter : int
         number of done iterations
+    viter: int
+        number of value iterations completed
     time : float
         used CPU time
 
@@ -648,6 +650,7 @@ class PolicyIteration(MDP):
             self.policy = policy0
         # set the initial values to zero
         self.V = _np.zeros(self.S)
+        self.viter = 0
         # Do some setup depending on the evaluation type
         if eval_type in (0, "matrix"):
             self.eval_type = "matrix"
@@ -771,6 +774,7 @@ class PolicyIteration(MDP):
                 if self.verbose:
                     print(_MSG_STOP_MAX_ITER)
 
+        self.viter += itr
         self.V = policy_V
 
     def _evalPolicyMatrix(self):
